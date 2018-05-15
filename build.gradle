@@ -96,11 +96,17 @@ if (OperatingSystem.current().isWindows()) {
 
 test {
     exclude '**/CucumberTest*'
+    include '**/*UnitTest*'
+    include '**/*IntTest*'
 
     // uncomment if the tests reports are not generated
     // see https://github.com/jhipster/generator-jhipster/pull/2771 and https://github.com/jhipster/generator-jhipster/pull/4484
     // ignoreFailures true
     reports.html.enabled = false
+
+    // set heap size for the test JVM(s)
+    minHeapSize = "128m"
+    maxHeapSize = "512m"
 }
 
 task testReport(type: TestReport) {
