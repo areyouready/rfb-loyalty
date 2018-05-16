@@ -14,8 +14,18 @@ import com.bmuschko.gradle.docker.tasks.image.DockerBuildImage
 
 //needed to make the build portable (for circle ci in this case)
 docker {
-    url = System.env.DOCKER_HOST
-    certPath = new File(System.env.DOCKER_CERT_PATH)
+    if (System.env.DOCKER_HOST) {
+        url = System.env.DOCKER_HOST
+    }
+    if (System.env.DOCKER_CERT_PATH) {
+        certPath = new File(System.env.DOCKER_CERT_PATH)
+    }
+
+    registryCredentials {
+        username = areyouready
+        password = (System.env.DOCKER_HUB_PWD)
+        email = (System.env.DOCKER_HUB_MAIL)
+    }
 }
 
 task copyDockerFiles(type: Copy) {
@@ -34,3 +44,20 @@ task buildDocker(type: DockerBuildImage, dependsOn: 'copyDockerFiles') {
     tags = ["rfbloyalty:latest".toString(), "rfbloyalty:${project.version}".toString()]
 }
 
+/**
+ * Use to push latest tag to docker hub
+ *
+ * Note: at this time the plugin does not support pushing multiple tags
+ */
+task pushDockerLatest(type: DockerPushImage, dependsOn: 'buildDocker') {
+    imageName = rfbImageName
+    tag = "latest"
+}
+
+/**
+ * Use to push project version tag to docker hub
+ */
+task pushDockerVersionTag(type: DockerPushImage, dependsOn: 'buildDocker') {
+    imageName = rfbImageName
+    tag =  "${project.version}".toString()
+}
