@@ -20,9 +20,8 @@ docker {
     if (System.env.DOCKER_CERT_PATH) {
         certPath = new File(System.env.DOCKER_CERT_PATH)
     }
-
     registryCredentials {
-        username = 'areyouready`
+        username = 'areyouready'
         password = (System.env.DOCKER_HUB_PWD)
         email = (System.env.DOCKER_HUB_MAIL)
     }
