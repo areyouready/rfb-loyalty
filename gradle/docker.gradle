@@ -22,7 +22,7 @@ docker {
     }
 
     registryCredentials {
-        username = areyouready
+        username = 'areyouready`
         password = (System.env.DOCKER_HUB_PWD)
         email = (System.env.DOCKER_HUB_MAIL)
     }
