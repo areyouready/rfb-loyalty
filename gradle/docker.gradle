@@ -12,6 +12,12 @@ apply plugin: com.bmuschko.gradle.docker.DockerRemoteApiPlugin
 
 import com.bmuschko.gradle.docker.tasks.image.DockerBuildImage
 
+//needed to make the build portable (for circle ci in this case)
+docker {
+    url = System.env.DOCKER_HOST
+    certPath = new File(System.env.DOCKER_CERT_PATH)
+}
+
 task copyDockerFiles(type: Copy) {
     description = "Copy Dockerfile and required data to build directory"
     from 'src/main/docker'
