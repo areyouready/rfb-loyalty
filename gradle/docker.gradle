@@ -36,6 +36,8 @@ task copyDockerFiles(type: Copy) {
     exclude "**/*.yml"
 }
 
+def rfbImageName = 'areyouready/rfbloyalty'
+
 task buildDocker(type: DockerBuildImage, dependsOn: 'copyDockerFiles') {
     description = "Package application as Docker image"
     group = "Docker"
