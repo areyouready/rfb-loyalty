@@ -41,6 +41,12 @@ public class CacheConfiguration {
             cm.createCache(de.fnortheim.domain.PersistentToken.class.getName(), jcacheConfiguration);
             cm.createCache(de.fnortheim.domain.User.class.getName() + ".persistentTokens", jcacheConfiguration);
             cm.createCache(de.fnortheim.domain.SocialUserConnection.class.getName(), jcacheConfiguration);
+            cm.createCache(de.fnortheim.domain.RfbLocation.class.getName(), jcacheConfiguration);
+            cm.createCache(de.fnortheim.domain.RfbLocation.class.getName() + ".rfbEvents", jcacheConfiguration);
+            cm.createCache(de.fnortheim.domain.RfbEvent.class.getName(), jcacheConfiguration);
+            cm.createCache(de.fnortheim.domain.RfbEvent.class.getName() + ".rfbEventAttendances", jcacheConfiguration);
+            cm.createCache(de.fnortheim.domain.RfbEventAttendance.class.getName(), jcacheConfiguration);
+            cm.createCache(de.fnortheim.domain.RfbUser.class.getName(), jcacheConfiguration);
             // jhipster-needle-ehcache-add-entry
         };
     }
