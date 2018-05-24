@@ -32,9 +32,9 @@ public class RfbEventCodeService {
     }
 
 
-    //    @Scheduled(cron = "0 0 * * * ?") // once per hour at top of hour
+    @Scheduled(cron = "0 0 * * * ?") // once per hour at top of hour
 //    @Scheduled(cron = "0 * * * * ?") // once per min
-    @Scheduled(cron = "* * * * * ?") // once per second
+//    @Scheduled(cron = "* * * * * ?") // once per second
     public void generateRunEventCodes() {
         log.debug("Generating Events");
 
