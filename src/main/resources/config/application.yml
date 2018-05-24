@@ -125,3 +125,7 @@ jhipster:
 # ===================================================================
 
 application:
+logging:
+  level:
+    de.fnortheim.service: debug
+    de.fnortheim.aop.logging: error
