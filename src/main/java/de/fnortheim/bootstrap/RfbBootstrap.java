@@ -18,18 +18,20 @@ public class RfbBootstrap implements CommandLineRunner {
     private final RfbEventRepository rfbEventRepository;
     private final RfbEventAttendanceRepository rfbEventAttendanceRepository;
     private final RfbUserRepository rfbUserRepository;
-    private final PasswordEncoder passwordEncoder;
-    private final AuthorityRepository authorityRepository;
+//    private final PasswordEncoder passwordEncoder;
+//    private final AuthorityRepository authorityRepository;
 
+//    public RfbBootstrap(RfbLocationRepository rfbLocationRepository, RfbEventRepository rfbEventRepository,
+//                        RfbEventAttendanceRepository rfbEventAttendanceRepository, RfbUserRepository rfbUserRepository,
+//                        PasswordEncoder passwordEncoder, AuthorityRepository authorityRepository) {
     public RfbBootstrap(RfbLocationRepository rfbLocationRepository, RfbEventRepository rfbEventRepository,
-                        RfbEventAttendanceRepository rfbEventAttendanceRepository, RfbUserRepository rfbUserRepository,
-                        PasswordEncoder passwordEncoder, AuthorityRepository authorityRepository) {
+                        RfbEventAttendanceRepository rfbEventAttendanceRepository, RfbUserRepository rfbUserRepository) {
         this.rfbLocationRepository = rfbLocationRepository;
         this.rfbEventRepository = rfbEventRepository;
         this.rfbEventAttendanceRepository = rfbEventAttendanceRepository;
         this.rfbUserRepository = rfbUserRepository;
-        this.passwordEncoder = passwordEncoder;
-        this.authorityRepository = authorityRepository;
+//        this.passwordEncoder = passwordEncoder;
+//        this.authorityRepository = authorityRepository;
     }
     @Transactional
     @Override
