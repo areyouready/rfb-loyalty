@@ -2,6 +2,20 @@
 Main page styles
 ========================================================================== */
 
+#rfb-home {
+    background: url("../../content/images/beer-light.jpg");
+    background-size: contain;
+    padding: 20px 0px 60px 0px;
+}
+
+.main-header {
+    font-family: 'Walter Turncoat', cursive;
+}
+
+.event-header {
+    font-family: 'Walter Turncoat', cursive;
+}
+
 .hipster {
     display: inline-block;
     width: 347px;
