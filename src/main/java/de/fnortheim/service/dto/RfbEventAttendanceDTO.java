@@ -1,6 +1,8 @@
 package de.fnortheim.service.dto;
 
 
+import de.fnortheim.domain.RfbLocation;
+
 import java.time.LocalDate;
 import java.io.Serializable;
 import java.util.HashSet;
@@ -23,6 +25,16 @@ public class RfbEventAttendanceDTO implements Serializable {
     private LocalDate rfbEventDate;
 
     private String rfbUsername;
+
+    private String rfbEventLocation;
+
+    public String getRfbEventLocation() {
+        return rfbEventLocation;
+    }
+
+    public void setRfbEventLocation(String rfbEventLocation) {
+        this.rfbEventLocation = rfbEventLocation;
+    }
 
     public LocalDate getRfbEventDate() {
         return rfbEventDate;

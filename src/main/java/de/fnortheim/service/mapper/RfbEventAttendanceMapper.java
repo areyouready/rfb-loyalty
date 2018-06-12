@@ -15,6 +15,7 @@ public interface RfbEventAttendanceMapper extends EntityMapper<RfbEventAttendanc
     @Mapping(source = "rfbUser.id", target = "rfbUserId")
     @Mapping(source = "rfbUser.username", target = "rfbUsername")
     @Mapping(source = "rfbEvent.eventDate", target = "rfbEventDate")
+    @Mapping(source = "rfbEvent.rfbLocation.locationName", target = "rfbEventLocation")
     RfbEventAttendanceDTO toDto(RfbEventAttendance rfbEventAttendance);
 
     @Mapping(source = "rfbEventId", target = "rfbEvent")

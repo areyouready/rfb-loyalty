@@ -8,6 +8,7 @@ export class RfbEventAttendance implements BaseEntity {
         public rfbUserId?: number,
         public rfbEventDate?: any,
         public rfbUsername?: string,
+        public rfbEventLocation?: string,
     ) {
     }
 }
