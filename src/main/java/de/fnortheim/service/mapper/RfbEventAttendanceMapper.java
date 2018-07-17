@@ -8,18 +8,18 @@ import org.mapstruct.*;
 /**
  * Mapper for the entity RfbEventAttendance and its DTO RfbEventAttendanceDTO.
  */
-@Mapper(componentModel = "spring", uses = {RfbEventMapper.class, RfbUserMapper.class})
+@Mapper(componentModel = "spring", uses = {RfbEventMapper.class, UserMapper.class})
 public interface RfbEventAttendanceMapper extends EntityMapper<RfbEventAttendanceDTO, RfbEventAttendance> {
 
     @Mapping(source = "rfbEvent.id", target = "rfbEventId")
-    @Mapping(source = "rfbUser.id", target = "rfbUserId")
-    @Mapping(source = "rfbUser.username", target = "rfbUsername")
+    @Mapping(source = "user.id", target = "userId")
+    @Mapping(source = "user.firstName", target = "userFirstname")
     @Mapping(source = "rfbEvent.eventDate", target = "rfbEventDate")
     @Mapping(source = "rfbEvent.rfbLocation.locationName", target = "rfbEventLocation")
     RfbEventAttendanceDTO toDto(RfbEventAttendance rfbEventAttendance);
 
     @Mapping(source = "rfbEventId", target = "rfbEvent")
-    @Mapping(source = "rfbUserId", target = "rfbUser")
+    @Mapping(source = "userId", target = "user")
     RfbEventAttendance toEntity(RfbEventAttendanceDTO rfbEventAttendanceDTO);
 
     default RfbEventAttendance fromId(Long id) {

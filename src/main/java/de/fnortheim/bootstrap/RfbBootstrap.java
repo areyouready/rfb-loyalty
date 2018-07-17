@@ -1,7 +1,13 @@
 package de.fnortheim.bootstrap;
 
-import de.fnortheim.domain.*;
-import de.fnortheim.repository.*;
+import de.fnortheim.domain.RfbEvent;
+import de.fnortheim.domain.RfbEventAttendance;
+import de.fnortheim.domain.RfbLocation;
+import de.fnortheim.domain.User;
+import de.fnortheim.repository.RfbEventAttendanceRepository;
+import de.fnortheim.repository.RfbEventRepository;
+import de.fnortheim.repository.RfbLocationRepository;
+import de.fnortheim.repository.UserRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
@@ -17,28 +23,30 @@ public class RfbBootstrap implements CommandLineRunner {
     private final RfbLocationRepository rfbLocationRepository;
     private final RfbEventRepository rfbEventRepository;
     private final RfbEventAttendanceRepository rfbEventAttendanceRepository;
-    private final RfbUserRepository rfbUserRepository;
-//    private final PasswordEncoder passwordEncoder;
+    private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 //    private final AuthorityRepository authorityRepository;
 
-//    public RfbBootstrap(RfbLocationRepository rfbLocationRepository, RfbEventRepository rfbEventRepository,
+    //    public RfbBootstrap(RfbLocationRepository rfbLocationRepository, RfbEventRepository rfbEventRepository,
 //                        RfbEventAttendanceRepository rfbEventAttendanceRepository, RfbUserRepository rfbUserRepository,
 //                        PasswordEncoder passwordEncoder, AuthorityRepository authorityRepository) {
     public RfbBootstrap(RfbLocationRepository rfbLocationRepository, RfbEventRepository rfbEventRepository,
-                        RfbEventAttendanceRepository rfbEventAttendanceRepository, RfbUserRepository rfbUserRepository) {
+                        RfbEventAttendanceRepository rfbEventAttendanceRepository, UserRepository userRepository,
+                        PasswordEncoder passwordEncoder) {
         this.rfbLocationRepository = rfbLocationRepository;
         this.rfbEventRepository = rfbEventRepository;
         this.rfbEventAttendanceRepository = rfbEventAttendanceRepository;
-        this.rfbUserRepository = rfbUserRepository;
-//        this.passwordEncoder = passwordEncoder;
+        this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
 //        this.authorityRepository = authorityRepository;
     }
+
     @Transactional
     @Override
     public void run(String... strings) throws Exception {
 
         // init RFB Locations
-        if(rfbLocationRepository.count() == 0){
+        if (rfbLocationRepository.count() == 0) {
             //only load data if no data loaded
             initData();
         }
@@ -46,37 +54,40 @@ public class RfbBootstrap implements CommandLineRunner {
     }
 
     private void initData() {
-        RfbUser rfbUser = new RfbUser();
-        rfbUser.setUsername("Sebastian");
-        rfbUserRepository.save(rfbUser);
+        User user = new User();
+        user.setFirstName("Sebastian");
+        user.setPassword(passwordEncoder.encode("admin"));
+        user.setLogin("Sebastian");
+        user.setActivated(true);
+        userRepository.save(user);
 
         //load data
         RfbLocation aleAndWitch = getRfbLocation("St Pete - Ale and the Witch", DayOfWeek.MONDAY.getValue());
 
-        rfbUser.setHomeLocation(aleAndWitch);
-        rfbUserRepository.save(rfbUser);
+        user.setHomeLocation(aleAndWitch);
+        userRepository.save(user);
 
         RfbEvent aleEvent = getRfbEvent(aleAndWitch);
 
-        getRfbEventAttendance(rfbUser, aleEvent);
+        getRfbEventAttendance(user, aleEvent);
 
         RfbLocation ratc = getRfbLocation("St Pete - Right Around The Corner", DayOfWeek.TUESDAY.getValue());
 
         RfbEvent ratcEvent = getRfbEvent(ratc);
 
-        getRfbEventAttendance(rfbUser, ratcEvent);
+        getRfbEventAttendance(user, ratcEvent);
 
         RfbLocation stPeteBrew = getRfbLocation("St Pete - St Pete Brewing", DayOfWeek.WEDNESDAY.getValue());
 
         RfbEvent stPeteBrewEvent = getRfbEvent(stPeteBrew);
 
-        getRfbEventAttendance(rfbUser, stPeteBrewEvent);
+        getRfbEventAttendance(user, stPeteBrewEvent);
 
         RfbLocation yardOfAle = getRfbLocation("St Pete - Yard of Ale", DayOfWeek.THURSDAY.getValue());
 
         RfbEvent yardOfAleEvent = getRfbEvent(yardOfAle);
 
-        getRfbEventAttendance(rfbUser, yardOfAleEvent);
+        getRfbEventAttendance(user, yardOfAleEvent);
 
         RfbLocation pourHouse = getRfbLocation("Tampa - Pour House", DayOfWeek.MONDAY.getValue());
         RfbLocation macDintons = getRfbLocation("Tampa - Mac Dintons", DayOfWeek.TUESDAY.getValue());
@@ -85,10 +96,10 @@ public class RfbBootstrap implements CommandLineRunner {
     }
 
 
-    private void getRfbEventAttendance(RfbUser rfbUser, RfbEvent rfbEvent) {
+    private void getRfbEventAttendance(User user, RfbEvent rfbEvent) {
         RfbEventAttendance rfbAttendance = new RfbEventAttendance();
         rfbAttendance.setRfbEvent(rfbEvent);
-        rfbAttendance.setRfbUser(rfbUser);
+        rfbAttendance.setUser(user);
         rfbAttendance.setAttendanceDate(LocalDate.now());
 
         System.out.println(rfbAttendance.toString());

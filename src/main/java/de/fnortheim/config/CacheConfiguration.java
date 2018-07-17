@@ -46,9 +46,8 @@ public class CacheConfiguration {
             cm.createCache(de.fnortheim.domain.RfbEvent.class.getName(), jcacheConfiguration);
             cm.createCache(de.fnortheim.domain.RfbEvent.class.getName() + ".rfbEventAttendances", jcacheConfiguration);
             cm.createCache(de.fnortheim.domain.RfbEventAttendance.class.getName(), jcacheConfiguration);
-            cm.createCache(de.fnortheim.domain.RfbUser.class.getName(), jcacheConfiguration);
-            cm.createCache(de.fnortheim.domain.RfbEventAttendance.class.getName() + ".rfbUsers", jcacheConfiguration);
-            cm.createCache(de.fnortheim.domain.RfbUser.class.getName() + ".rfbEventAttendances", jcacheConfiguration);
+            cm.createCache(de.fnortheim.domain.RfbEventAttendance.class.getName() + ".users", jcacheConfiguration);
+            cm.createCache(de.fnortheim.domain.User.class.getName() + ".rfbEventAttendances", jcacheConfiguration);
             // jhipster-needle-ehcache-add-entry
         };
     }

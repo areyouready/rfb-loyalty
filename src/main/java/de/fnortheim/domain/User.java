@@ -99,6 +99,53 @@ public class User extends AbstractAuditingEntity implements Serializable {
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<PersistentToken> persistentTokens = new HashSet<>();
 
+    @OneToOne
+    @JoinColumn(name = "rfb_location_id")
+    private RfbLocation homeLocation;
+
+    @OneToMany(mappedBy = "user")
+    @JsonIgnore
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    private Set<RfbEventAttendance> rfbEventAttendances = new HashSet<>();
+
+    public RfbLocation getHomeLocation() {
+        return homeLocation;
+    }
+
+    public User homeLocation(RfbLocation rfbLocation) {
+        this.homeLocation = rfbLocation;
+        return this;
+    }
+
+    public void setHomeLocation(RfbLocation homeLocation) {
+        this.homeLocation = homeLocation;
+    }
+
+    public Set<RfbEventAttendance> getRfbEventAttendances() {
+        return rfbEventAttendances;
+    }
+
+    public void setRfbEventAttendances(Set<RfbEventAttendance> rfbEventAttendances) {
+        this.rfbEventAttendances = rfbEventAttendances;
+    }
+
+    public User rfbEventAttendances(Set<RfbEventAttendance> rfbEventAttendances) {
+        this.rfbEventAttendances = rfbEventAttendances;
+        return this;
+    }
+
+    public User addRfbEventAttendance(RfbEventAttendance rfbEventAttendance) {
+        this.rfbEventAttendances.add(rfbEventAttendance);
+        rfbEventAttendance.setUser(this);
+        return this;
+    }
+
+    public User removeRfbEventAttendance(RfbEventAttendance rfbEventAttendance) {
+        this.rfbEventAttendances.remove(rfbEventAttendance);
+        rfbEventAttendance.setUser(null);
+        return this;
+    }
+
     public Long getId() {
         return id;
     }

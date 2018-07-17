@@ -20,11 +20,11 @@ public class RfbEventAttendanceDTO implements Serializable {
 
     private Long rfbEventId;
 
-    private Long rfbUserId;
+    private Long userId;
 
     private LocalDate rfbEventDate;
 
-    private String rfbUsername;
+    private String userFirstname;
 
     private String rfbEventLocation;
 
@@ -44,12 +44,12 @@ public class RfbEventAttendanceDTO implements Serializable {
         this.rfbEventDate = rfbEventDate;
     }
 
-    public String getRfbUsername() {
-        return rfbUsername;
+    public String getUserFirstname() {
+        return userFirstname;
     }
 
-    public void setRfbUsername(String rfbUsername) {
-        this.rfbUsername = rfbUsername;
+    public void setUserFirstname(String userFirstname) {
+        this.userFirstname = userFirstname;
     }
 
     public Long getId() {
@@ -76,12 +76,12 @@ public class RfbEventAttendanceDTO implements Serializable {
         this.rfbEventId = rfbEventId;
     }
 
-    public Long getRfbUserId() {
-        return rfbUserId;
+    public Long getUserId() {
+        return userId;
     }
 
-    public void setRfbUserId(Long rfbUserId) {
-        this.rfbUserId = rfbUserId;
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
     @Override
