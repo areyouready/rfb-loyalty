@@ -3,8 +3,10 @@ package de.fnortheim.web.rest;
 import com.codahale.metrics.annotation.Timed;
 
 import de.fnortheim.domain.PersistentToken;
+import de.fnortheim.domain.RfbLocation;
 import de.fnortheim.repository.PersistentTokenRepository;
 import de.fnortheim.domain.User;
+import de.fnortheim.repository.RfbLocationRepository;
 import de.fnortheim.repository.UserRepository;
 import de.fnortheim.security.SecurityUtils;
 import de.fnortheim.service.MailService;
@@ -43,9 +45,13 @@ public class AccountResource {
 
     private final PersistentTokenRepository persistentTokenRepository;
 
-    public AccountResource(UserRepository userRepository, UserService userService, MailService mailService, PersistentTokenRepository persistentTokenRepository) {
+    private final RfbLocationRepository locationRepository;
+
+    public AccountResource(UserRepository userRepository, UserService userService, MailService mailService,
+                           PersistentTokenRepository persistentTokenRepository, RfbLocationRepository locationRepository) {
 
         this.userRepository = userRepository;
+        this.locationRepository = locationRepository;
         this.userService = userService;
         this.mailService = mailService;
         this.persistentTokenRepository = persistentTokenRepository;
@@ -68,7 +74,12 @@ public class AccountResource {
         }
         userRepository.findOneByLogin(managedUserVM.getLogin().toLowerCase()).ifPresent(u -> {throw new LoginAlreadyUsedException();});
         userRepository.findOneByEmailIgnoreCase(managedUserVM.getEmail()).ifPresent(u -> {throw new EmailAlreadyUsedException();});
-        User user = userService.registerUser(managedUserVM, managedUserVM.getPassword());
+
+        RfbLocation homeLocation = null;
+        if (managedUserVM.getHomeLocation() != null) {
+            homeLocation = locationRepository.findOne(managedUserVM.getHomeLocation());
+        }
+        User user = userService.registerUser(managedUserVM, managedUserVM.getPassword(), homeLocation);
         mailService.sendActivationEmail(user);
     }
 

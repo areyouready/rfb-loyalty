@@ -112,11 +112,6 @@ public class User extends AbstractAuditingEntity implements Serializable {
         return homeLocation;
     }
 
-    public User homeLocation(RfbLocation rfbLocation) {
-        this.homeLocation = rfbLocation;
-        return this;
-    }
-
     public void setHomeLocation(RfbLocation homeLocation) {
         this.homeLocation = homeLocation;
     }

@@ -4,6 +4,7 @@ import de.fnortheim.domain.Authority;
 import de.fnortheim.domain.User;
 import de.fnortheim.service.dto.UserDTO;
 
+import org.mapstruct.Mapping;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -11,7 +12,7 @@ import java.util.stream.Collectors;
 
 /**
  * Mapper for the entity User and its DTO called UserDTO.
- *
+ * <p>
  * Normal mappers are generated using MapStruct, this one is hand-coded as MapStruct
  * support is still in beta, and requires a manual step with an IDE.
  */
