@@ -7,6 +7,7 @@ import de.fnortheim.domain.PersistentToken;
 import de.fnortheim.domain.User;
 import de.fnortheim.repository.AuthorityRepository;
 import de.fnortheim.repository.PersistentTokenRepository;
+import de.fnortheim.repository.RfbLocationRepository;
 import de.fnortheim.repository.UserRepository;
 import de.fnortheim.security.AuthoritiesConstants;
 import de.fnortheim.service.MailService;
@@ -75,6 +76,9 @@ public class AccountResourceIntTest {
     @Autowired
     private ExceptionTranslator exceptionTranslator;
 
+    @Autowired
+    private RfbLocationRepository rfbLocationRepository;
+
     @Mock
     private UserService mockUserService;
 
@@ -90,10 +94,10 @@ public class AccountResourceIntTest {
         MockitoAnnotations.initMocks(this);
         doNothing().when(mockMailService).sendActivationEmail(anyObject());
         AccountResource accountResource =
-            new AccountResource(userRepository, userService, mockMailService, persistentTokenRepository);
+            new AccountResource(userRepository, userService, mockMailService, persistentTokenRepository, rfbLocationRepository);
 
         AccountResource accountUserMockResource =
-            new AccountResource(userRepository, mockUserService, mockMailService, persistentTokenRepository);
+            new AccountResource(userRepository, mockUserService, mockMailService, persistentTokenRepository, rfbLocationRepository);
         this.restMvc = MockMvcBuilders.standaloneSetup(accountResource)
             .setMessageConverters(httpMessageConverters)
             .setControllerAdvice(exceptionTranslator)
