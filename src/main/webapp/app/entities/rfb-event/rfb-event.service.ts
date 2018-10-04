@@ -44,6 +44,11 @@ export class RfbEventService {
         return this.http.delete<any>(`${this.resourceUrl}/${id}`, { observe: 'response'});
     }
 
+    findByLocation(locationID: number): Observable<RfbEvent> {
+        return this.http.get<RfbEvent>(`${this.resourceUrl}/location/${locationID}`, {observe: 'response'})
+            .map((res: HttpResponse<RfbEvent>) => this.convertItemFromServer(res.body));
+    }
+
     private convertResponse(res: EntityResponseType): EntityResponseType {
         const body: RfbEvent = this.convertItemFromServer(res.body);
         return res.clone({body});
@@ -77,4 +82,5 @@ export class RfbEventService {
             .convertLocalDateToServer(rfbEvent.eventDate);
         return copy;
     }
+
 }

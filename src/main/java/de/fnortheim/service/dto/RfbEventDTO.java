@@ -20,6 +20,16 @@ public class RfbEventDTO implements Serializable {
 
     private Long rfbLocationId;
 
+    public String getRfbLocationName() {
+        return rfbLocationName;
+    }
+
+    public void setRfbLocationName(String rfbLocationName) {
+        this.rfbLocationName = rfbLocationName;
+    }
+
+    private String rfbLocationName;
+
     public Long getId() {
         return id;
     }
